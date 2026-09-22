@@ -13,7 +13,7 @@ public class CellSpawner : MonoBehaviour
 
     public void GenerarRonda()
     {
-        BorrarCelulasAnteriores();
+        LimpiarCelulas();
 
         for (int i = 0; i < cantidadCelulas; i++)
         {
@@ -26,6 +26,17 @@ public class CellSpawner : MonoBehaviour
 
             celulasActivas.Add(celula);
         }
+    }
+    public void LimpiarCelulas() 
+    {
+        foreach (CellController celula in celulasActivas) 
+        {
+            if (celula != null) 
+            {
+                Destroy(celula.gameObject);
+            }
+        }
+        celulasActivas.Clear();
     }
 
     public List<CellController> ObtenerCelulasActivas()

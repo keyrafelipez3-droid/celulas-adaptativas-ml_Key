@@ -43,9 +43,7 @@ public class GameManager : MonoBehaviour
             tiempoRestante -= Time.deltaTime;
             yield return null;
         }
-
         rondaActiva = false;
-
         foreach (CellController celula in spawner.ObtenerCelulasActivas())
         {
             if (celula != null && !celula.eliminada)
@@ -53,6 +51,7 @@ public class GameManager : MonoBehaviour
                 brain.RegistrarSobreviviente(celula.cellColor, celula.cellSize);
             }
         }
+        spawner.LimpiarCelulas();
     }
     // Llamado desde CellController cuando el jugador hace clic en una célula.
     public void CelulaClickeada(CellController celula)
@@ -61,7 +60,11 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-
+        if (celula.eliminada)
+        {
+            return;
+        }
+        celula.eliminada = true;
         scoreManager.SumarPuntos(10);
         spawner.QuitarCelula(celula);
         Destroy(celula.gameObject);

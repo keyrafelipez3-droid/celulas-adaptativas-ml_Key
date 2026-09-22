@@ -14,11 +14,11 @@ public class CellController : MonoBehaviour
     }
     void OnMouseDown()
     {
+        Debug.Log("Clic detectado en una célula");
         if (eliminada)
         {
             return;
         }
-        eliminada = true;
         GameManager.instance.CelulaClickeada(this);
     }
 }
